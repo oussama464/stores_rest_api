@@ -1,6 +1,8 @@
+import os
 from flask import Flask
 from flask_restful import Api
 from flask_jwt import JWT
+
 
 from security import authenticate, identifty
 from resources.user import UserRegister
@@ -11,9 +13,8 @@ from utils.db_utilities import db
 
 
 app = Flask(__name__)
-app.config[
-    "SQLALCHEMY_DATABASE_URI"
-] = "sqlite:///data.db"  # tell sqlachemy where to find the db
+app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get(
+    "DATABASE_URL", "sqlite:///data.db")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.secret_key = "oussama"
 api = Api(app)  # add resources (classes) to api
