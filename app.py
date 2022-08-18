@@ -19,6 +19,9 @@ app.secret_key = "oussama"
 api = Api(app)  # add resources (classes) to api
 
 
+db.init_app(app)
+
+
 @app.before_first_request
 def create_tables():
     db.create_all()
@@ -34,5 +37,5 @@ api.add_resource(Store, "/store/<string:name>")
 api.add_resource(StoreList, "/stores")
 
 if __name__ == "__main__":
-    db.init_app(app)
+
     app.run(port=5000, debug=True)
